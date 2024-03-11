@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>raffia haven - Find your style</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+    crossorigin="anonymous"></script>
+  <!-- 
+    - favicon
+  -->
+  <link rel="shortcut icon" href="./favicon.svg" type="image/svg+xml">
+
+  <!-- 
+    - custom css link
+  -->
+  <link rel="stylesheet" href="./assets/css/style.css">
+
+  <!-- 
+    - google font link
+  -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;500;600;700&family=Roboto:wght@400;500;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+
+  <!-- 
+    - preload banner
+  -->
+  <link rel="preload" href="./assets/images/hero-banner.jpg" as="image">
+  <!--  -->
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+  <script type="text/javascript">
+    (function () {
+      // https://dashboard.emailjs.com/admin/account
+      emailjs.init('9_go1hMMzLv0A1Qqk');
+    })();
+  </script>
+  <script type="text/javascript">
+    window.onload = function () {
+      document.getElementById('contact-form').addEventListener('submit', function (event) {
+        event.preventDefault();
+        // generate a five digit number for the contact_number variable
+        this.contact_number.value = Math.random() * 100000 | 0;
+        // these IDs from the previous steps
+        emailjs.sendForm('service_bqkwms3', 'template_qzqxr0h', this)
+          .then(function () {
+            console.log('SUCCESS!');
+
+            document.getElementById("msg").innerHTML = `
+                     <div class="alert alert-success alert-dismissible fade show" role="alert">
+                         <div>
+                           Message has been sent
+                         </div>
+                         <button 
+                         type="button" 
+                         class="btn-close" 
+                         data-bs-dismiss="alert"
+                         aria-label="Close"></button>
+                     </div>
+                     `
+            document.getElementById("user_name").value = ""
+            document.getElementById("user_email").value = ""
+            document.getElementById("Object").value = ""
+            document.getElementById("message").value = ""
+          }, function (error) {
+            console.log('FAILED...', error);
+          });
+      });
+    }
+  </script>
+  <!--  -->
+</head>
+
+<body id="top">
+
+  <!-- 
+    - #HEADER
+  -->
+
+  <header class="header" data-header>
+    <div class="container">
+
+      <div class="overlay" data-overlay></div>
+
+      <a href="../#" class="logo">
+        <img src="./assets/images/logo.svg" width="50" height="50" style="padding: 10px;" alt="raffia haven logo">
+      </a>
+
+      <button class="nav-open-btn" data-nav-open-btn aria-label="Open Menu">
+        <ion-icon name="menu-outline"></ion-icon>
+      </button>
+
+      <nav class="navbar" data-navbar>
+
+        <button class="nav-close-btn" data-nav-close-btn aria-label="Close Menu">
+          <ion-icon name="close-outline"></ion-icon>
+        </button>
+
+        <a href="../#" class="logo">
+          <img src="./assets/images/logo.svg" width="190" height="50" alt="raffia haven logo">
+        </a>
+
+        <ul class="navbar-list">
+
+          <li class="navbar-item">
+            <a href="../#" class="navbar-link">Home</a>
+          </li>
+
+          <li class="navbar-item">
+            <a href="../#" class="navbar-link">About</a>
+          </li>
+
+          <li class="navbar-item">
+            <a href="#collection" class="navbar-link">Collection</a>
+          </li>
+          <li class="navbar-item">
+            <a href="#product" class="navbar-link">Product</a>
+          </li>
+          <li class="navbar-item">
+            <a href="#service" class="navbar-link">Service</a>
+          </li>
+
+
+          <li class="navbar-item">
+            <button data-bs-toggle="modal" data-bs-target="#contact" data-bs-whatever="@mdo"
+              class="navbar-link">Contact</button>
+          </li>
+
+        </ul>
+
+        <!-- <ul class="nav-action-list">
+
+          <li>
+            <button class="nav-action-btn">
+              <ion-icon name="search-outline" aria-hidden="true"></ion-icon>
+
+              <span class="nav-action-text">Search</span>
+            </button>
+          </li>
+
+          <li>
+            <a href="../#" class="nav-action-btn">
+              <ion-icon name="person-outline" aria-hidden="true"></ion-icon>
+
+              <span class="nav-action-text">Login / Register</span>
+            </a>
+          </li>
+
+          <li>
+            <button class="nav-action-btn">
+              <ion-icon name="heart-outline" aria-hidden="true"></ion-icon>
+
+              <span class="nav-action-text">Wishlist</span>
+
+              <data class="nav-action-badge" value="5" aria-hidden="true">5</data>
+            </button>
+          </li>
+
+          <li>
+            <button class="nav-action-btn">
+              <ion-icon name="bag-outline" aria-hidden="true"></ion-icon>
+
+              <data class="nav-action-text" value="318.00">Basket: <strong>$318.00</strong></data>
+
+              <data class="nav-action-badge" value="4" aria-hidden="true">4</data>
+            </button>
+          </li>
+
+        </ul> -->
+
+      </nav>
+
+    </div>
+  </header>
+
+
+
+
+
+  <main>
+    <article>
+
+
+      <section class="section product">
+        <div class="container" id="theProduct">
+        </div>
+      </section>
+
+      <section class="section product" id="product">
+        <div class="container">
+
+          <h2 class="h2 section-title">Bestsellers Products</h2>
+
+          <ul class="filter-list">
+
+            <li>
+              <button class="filter-btn  active">All</button>
+            </li>
+
+            <li>
+              <button class="filter-btn">Table Lamp</button>
+            </li>
+
+            <li>
+              <button class="filter-btn">Floor Lamp</button>
+            </li>
+
+            <li>
+              <button class="filter-btn">Desk Lamp</button>
+            </li>
+
+            <li>
+              <button class="filter-btn">Bedside Lamp</button>
+            </li>
+
+            <li>
+              <button class="filter-btn">Reading Lamp</button>
+            </li>
+            <li>
+              <button class="filter-btn">Task Lamp</button>
+            </li>
+            <li>
+              <button class="filter-btn">Accent Lamp</button>
+            </li>
+            <li>
+              <button class="filter-btn">Buffet Lamp</button>
+            </li>
+            <li>
+              <button class="filter-btn">Arc Lamp</button>
+            </li>
+            <li>
+              <button class="filter-btn">Chandelier</button>
+            </li>
+            <li>
+              <button class="filter-btn">Pendant Lamp</button>
+            </li>
+            <li>
+              <button class="filter-btn">Wall Sconce</button>
+            </li>
+            <li>
+              <button class="filter-btn">Track Lighting</button>
+            </li>
+            <li>
+              <button class="filter-btn">Lava Lamp</button>
+            </li>
+
+          </ul>
+
+          <ul class="product-list">
+          </ul>
+
+        </div>
+      </section>
+
+
+
+
+
+
+      <section class="section cta" id="cta">
+        <div class="container">
+
+          <ul class="cta-list">
+
+            <li>
+              <div class="cta-card" style="background-image: url('./assets/images/mirror/mirror (4).jpg')">
+                <p class="card-subtitle">mirror </p>
+
+                <h3 class="h2 card-title">Sustainable living, eco-friendly choices.</h3>
+
+                <a href="../#" class="btn btn-link">
+                  <span>Shop Now</span>
+
+                  <ion-icon name="arrow-forward-outline" aria-hidden="true"></ion-icon>
+                </a>
+              </div>
+            </li>
+
+            <li>
+              <div class="cta-card"
+                style="background-image: url('./assets/images/hangingLamp/hangingLamp\ \(10\).jpg')">
+                <p class="card-subtitle">Lamp </p>
+
+                <h3 class="h2 card-title">Harmony with Earth, Future's Promise</h3>
+
+                <a href="../#" class="btn btn-link">
+                  <span>Shop Now</span>
+
+                  <ion-icon name="arrow-forward-outline" aria-hidden="true"></ion-icon>
+                </a>
+              </div>
+            </li>
+
+          </ul>
+
+        </div>
+      </section>
+
+
+
+
+
+      <!-- 
+        - #SPECIAL
+      -->
+
+      <section class="section special">
+        <div class="container">
+
+          <div class="special-banner"
+            style="background-image: url('./assets/images/hanging_lamp__26_-removebg-preview.png')">
+            <h2 class="h3 banner-title">New Trend Edition</h2>
+
+            <a href="../#" class="btn btn-link">
+              <span>Explore All</span>
+
+              <ion-icon name="arrow-forward-outline" aria-hidden="true"></ion-icon>
+            </a>
+          </div>
+
+          <div class="special-product">
+
+            <h2 class="h2 section-title">
+              <span class="text">mirror Special</span>
+
+              <span class="line"></span>
+            </h2>
+
+            <ul class="has-scrollbar" id="mirror-scrollbar">
+            </ul>
+
+          </div>
+
+        </div>
+      </section>
+
+
+
+
+
+      <!-- 
+        - #SERVICE
+      -->
+
+      <section class="section service" id="service">
+        <div class="container">
+
+          <ul class="service-list">
+
+            <li class="service-item">
+              <div class="service-card">
+
+                <div class="card-icon">
+                  <img src="./assets/images/service-1.png" width="53" height="28" loading="lazy" alt="Service icon">
+                </div>
+
+                <div>
+                  <h3 class="h4 card-title">Free Shiping</h3>
+
+                  <p class="card-text">
+                    All orders over <span>$150</span>
+                  </p>
+                </div>
+
+              </div>
+            </li>
+
+            <li class="service-item">
+              <div class="service-card">
+
+                <div class="card-icon">
+                  <img src="./assets/images/service-2.png" width="43" height="35" loading="lazy" alt="Service icon">
+                </div>
+
+                <div>
+                  <h3 class="h4 card-title">Quick Payment</h3>
+
+                  <p class="card-text">
+                    100% secure payment
+                  </p>
+                </div>
+
+              </div>
+            </li>
+
+            <li class="service-item">
+              <div class="service-card">
+
+                <div class="card-icon">
+                  <img src="./assets/images/service-3.png" width="40" height="40" loading="lazy" alt="Service icon">
+                </div>
+
+                <div>
+                  <h3 class="h4 card-title">Free Returns</h3>
+
+                  <p class="card-text">
+                    Money back in 30 days
+                  </p>
+                </div>
+
+              </div>
+            </li>
+
+            <li class="service-item">
+              <div class="service-card">
+
+                <div class="card-icon">
+                  <img src="./assets/images/service-4.png" width="40" height="40" loading="lazy" alt="Service icon">
+                </div>
+
+                <div>
+                  <h3 class="h4 card-title">24/7 Support</h3>
+
+                  <p class="card-text">
+                    Get Quick Support
+                  </p>
+                </div>
+
+              </div>
+            </li>
+
+          </ul>
+
+        </div>
+      </section>
+
+
+
+
+
+      <!-- 
+        - #INSTA POST
+      -->
+
+      <section class="section insta-post">
+
+        <ul class="insta-post-list has-scrollbar">
+
+          <li class="insta-post-item">
+            <img src="./assets/images/standingLamp/standingLamp (1).jpg" width="100" height="100" loading="lazy"
+              alt="Instagram post" class="insta-post-banner image-contain">
+
+            <a href="https://www.instagram.com/raffia_haven_marrakechs_art/" target="_blank" class="insta-post-link">
+              <ion-icon name="logo-instagram"></ion-icon>
+            </a>
+          </li>
+
+          <li class="insta-post-item">
+            <img src="./assets/images/standingLamp/standingLamp (2).jpg" width="100" height="100" loading="lazy"
+              alt="Instagram post" class="insta-post-banner image-contain">
+
+            <a href="https://www.instagram.com/raffia_haven_marrakechs_art/" target="_blank" class="insta-post-link">
+              <ion-icon name="logo-instagram"></ion-icon>
+            </a>
+          </li>
+
+          <li class="insta-post-item">
+            <img src="./assets/images/standingLamp/standingLamp (3).jpg" width="100" height="100" loading="lazy"
+              alt="Instagram post" class="insta-post-banner image-contain">
+
+            <a href="https://www.instagram.com/raffia_haven_marrakechs_art/" target="_blank" class="insta-post-link">
+              <ion-icon name="logo-instagram"></ion-icon>
+            </a>
+          </li>
+
+          <li class="insta-post-item">
+            <img src="./assets/images/standingLamp/standingLamp (4).jpg" width="100" height="100" loading="lazy"
+              alt="Instagram post" class="insta-post-banner image-contain">
+
+            <a href="https://www.instagram.com/raffia_haven_marrakechs_art/" target="_blank" class="insta-post-link">
+              <ion-icon name="logo-instagram"></ion-icon>
+            </a>
+          </li>
+
+          <li class="insta-post-item">
+            <img src="./assets/images/standingLamp/standingLamp (5).jpg" width="100" height="100" loading="lazy"
+              alt="Instagram post" class="insta-post-banner image-contain">
+
+            <a href="https://www.instagram.com/raffia_haven_marrakechs_art/" target="_blank" class="insta-post-link">
+              <ion-icon name="logo-instagram"></ion-icon>
+            </a>
+          </li>
+
+          <li class="insta-post-item">
+            <img src="./assets/images/standingLamp/standingLamp (6).jpg" width="100" height="100" loading="lazy"
+              alt="Instagram post" class="insta-post-banner image-contain">
+
+            <a href="https://www.instagram.com/raffia_haven_marrakechs_art/" target="_blank" class="insta-post-link">
+              <ion-icon name="logo-instagram"></ion-icon>
+            </a>
+          </li>
+
+          <li class="insta-post-item">
+            <img src="./assets/images/wallLamp/wallLamp (1).jpg" width="100" height="100" loading="lazy"
+              alt="Instagram post" class="insta-post-banner image-contain">
+
+            <a href="https://www.instagram.com/raffia_haven_marrakechs_art/" target="_blank" class="insta-post-link">
+              <ion-icon name="logo-instagram"></ion-icon>
+            </a>
+          </li>
+
+          <li class="insta-post-item">
+            <img src="./assets/images/wallLamp/wallLamp (5).jpg" width="100" height="100" loading="lazy"
+              alt="Instagram post" class="insta-post-banner image-contain">
+
+            <a href="https://www.instagram.com/raffia_haven_marrakechs_art/" target="_blank" class="insta-post-link">
+              <ion-icon name="logo-instagram"></ion-icon>
+            </a>
+          </li>
+
+        </ul>
+
+      </section>
+
+    </article>
+  </main>
+
+
+
+
+
+  <!-- 
+    - #FOOTER
+  -->
+
+  <footer class="footer">
+
+    <div class="footer-top section">
+      <div class="container">
+
+        <div class="footer-brand">
+
+          <a href="../#" class="logo">
+            <img src="./assets/images/logo.svg" width="160" height="50" alt="raffia haven logo">
+          </a>
+
+          <ul class="social-list">
+
+            <li>
+              <a href="https://www.facebook.com/profile.php?id=61551416173662&mibextid=ZbWKwL" target="_blank"
+                class="social-link">
+                <ion-icon name="logo-facebook"></ion-icon>
+              </a>
+            </li>
+
+            <li>
+              <a href="../#" class="social-link">
+                <ion-icon name="logo-twitter"></ion-icon>
+              </a>
+            </li>
+
+            <li>
+              <a href="../#" class="social-link">
+                <ion-icon name="logo-pinterest"></ion-icon>
+              </a>
+            </li>
+
+            <li>
+              <a href="../#" class="social-link">
+                <ion-icon name="logo-linkedin"></ion-icon>
+              </a>
+            </li>
+
+          </ul>
+
+        </div>
+
+        <div class="footer-link-box">
+
+          <ul class="footer-list">
+
+            <li>
+              <p class="footer-list-title">Contact Us</p>
+            </li>
+
+            <li>
+              <address class="footer-link">
+                <a href="https://maps.app.goo.gl/eQYq6fDnTqCLBn3i8" class="footer-link">
+                  <ion-icon name="location"></ion-icon>
+
+                  <span class="footer-link-text">
+                    dr ain dada, Marrakesh 40150
+                  </span>
+                </a>
+              </address>
+            </li>
+            <li>
+              <a href="tel:+212 675-181957" class="footer-link">
+                <ion-icon name="call"></ion-icon>
+
+                <span class="footer-link-text">+212 675-181957</span>
+              </a>
+            </li>
+
+            <li>
+              <a href="mailto:raffia haven@help.com" class="footer-link">
+                <ion-icon name="mail"></ion-icon>
+
+                <span class="footer-link-text">raffia haven@help.com</span>
+              </a>
+            </li>
+          </ul>
+
+          <ul class="footer-list">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d13589.19242403889!2d-8.0901259!3d31.6256873!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xdafe94193381c8b%3A0x39a44eaf23824e98!2sRaffia%20Haven%3A%20Marrakech&#39;s%20Artisan%20Retreat%20%2C%20Raffia%20Crafts%20Handcrafted%20Wonders%20Sustainable%20Artistry%20Marrakech%20Boutique!5e0!3m2!1sen!2sma!4v1708529608151!5m2!1sen!2sma"
+              width="100%" height="100" style="border:0;border-radius: 10px;margin-top:90px ;" allowfullscreen=""
+              loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+
+            <!-- <li>
+              <p class="footer-list-title">My Account</p>
+            </li>
+
+            <li>
+              <a href="../#" class="footer-link">
+                <ion-icon name="chevron-forward-outline"></ion-icon>
+
+                <span class="footer-link-text">My Account</span>
+              </a>
+            </li>
+
+            <li>
+              <a href="../#" class="footer-link">
+                <ion-icon name="chevron-forward-outline"></ion-icon>
+
+                <span class="footer-link-text">View Cart</span>
+              </a>
+            </li>
+
+            <li>
+              <a href="../#" class="footer-link">
+                <ion-icon name="chevron-forward-outline"></ion-icon>
+
+                <span class="footer-link-text">Wishlist</span>
+              </a>
+            </li>
+
+            <li>
+              <a href="../#" class="footer-link">
+                <ion-icon name="chevron-forward-outline"></ion-icon>
+
+                <span class="footer-link-text">Compare</span>
+              </a>
+            </li>
+
+            <li>
+              <a href="../#" class="footer-link">
+                <ion-icon name="chevron-forward-outline"></ion-icon>
+
+                <span class="footer-link-text">New Products</span>
+              </a>
+            </li> -->
+
+          </ul>
+
+          <div class="footer-list">
+
+            <p class="footer-list-title">Opening Time</p>
+
+            <table class="footer-table">
+              <tbody>
+
+                <tr class="table-row">
+                  <th class="table-head" scope="row">Mon to Wed:</th>
+
+                  <td class="table-data">8AM - 10PM</td>
+                </tr>
+
+                <tr class="table-row">
+                  <th class="table-head" scope="row">Fri:</th>
+
+                  <td class="table-data">8AM - 12AM</td>
+                </tr>
+
+                <tr class="table-row">
+                  <th class="table-head" scope="row">Fri:</th>
+
+                  <td class="table-data">2PM - 10PM</td>
+                </tr>
+
+                <tr class="table-row">
+                  <th class="table-head" scope="row">Sat:</th>
+
+                  <td class="table-data">9AM - 8PM</td>
+                </tr>
+
+                <tr class="table-row">
+                  <th class="table-head" scope="row">Sun:</th>
+
+                  <td class="table-data">Closed</td>
+                </tr>
+
+              </tbody>
+            </table>
+
+          </div>
+
+          <div class="footer-list">
+
+            <p class="footer-list-title">Newsletter</p>
+
+            <p class="newsletter-text">
+              Authoritatively morph 24/7 potentialities with error-free partnerships.
+            </p>
+
+            <form action="" class="newsletter-form">
+              <input type="email" name="email" required placeholder="Email Address" class="newsletter-input">
+
+              <button type="submit" class="btn btn-primary">Subscribe</button>
+            </form>
+
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div class="container">
+        <p class="copyright">
+          &copy; 2024 <a href="../#" class="copyright-link">raffia_haven</a>. All Rights Reserved
+        </p>
+
+      </div>
+    </div>
+    <div class="modal fade" id="contact" tabindex="-1" aria-labelledby="contactLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="contactLabel">New message</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div id="msg"></div>
+            <form id="contact-form">
+              <input type="hidden" name="contact_number" class="form-control">
+              <input type="text" placeholder="text" id="user_name" name="user_name" id="inputStyle">
+              <input type="email" placeholder="email" id="user_email" name="user_email" id="inputStyle">
+              <input type="text" placeholder="text" id="Object" name="Object" id="inputStyle">
+              <textarea id="message" placeholder="message" name="message" id="inputStyle"></textarea>
+              <div class="modal-footer">
+                <button type="submit" id="buttonStyle">Send</button>
+                <button type="button" data-bs-dismiss="modal" id="buttonStyle">Close</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+
+
+
+  <!-- 
+    - #GO TO TOP
+  -->
+
+  <a href="#top" class="go-top-btn" data-go-top>
+    <ion-icon name="arrow-up-outline"></ion-icon>
+  </a>
+
+
+
+
+
+  <!-- 
+    - custom js link
+  -->
+  <script src="./assets/js/script.js"></script>
+  <script>
+    const requestOptions = {
+      method: "GET",
+      redirect: "follow"
+    };
+    let product_name = window.location.href.replace('http://127.0.0.1:5500/product.html?', '');
+    fetch("https://eu-west-2.aws.data.mongodb-api.com/app/raffiahaven-lrlrn/endpoint/produt", requestOptions)
+      .then((response) => response.text())
+      .then((result) => {
+        const data = JSON.parse(result)
+        data.forEach((e, i) => {
+          if (product_name == e['_id']) {
+            let TheBadge = e.badge == "new" ? "new" : `-${e.badge}%`;
+            let realPrace = e.badge == "new" ? e.price : e.price - ((e.price * e.badge) / 100);
+            let Thecat = ""
+            e.cat.forEach((ca, index) => {
+              if (e.cat.length == index + 1) {
+                Thecat += `<a href="./hash/${ca}" class="card-cat-link">${ca}</a> `
+              } else {
+                Thecat += `<a href="./hash/${ca}" class="card-cat-link">${ca}</a> | `
+              }
+            });
+            document.getElementById('theProduct').innerHTML += `
+                    <li class="product-item">
+                      <div class="container text-center">
+                        <div class="row">
+                          <div class="col-md-8">
+                            <div class="product-card" tabindex="0">
+                              <figure class="card-banner">
+                                <img src="./assets/images/${e.type}/${e.type} (${i + 1}).jpg" width="312" height="350" loading="lazy"
+                                  alt="Air Jordan 7 Retro " class="image-contain">
+                                <div class="card-badge"> ${TheBadge}</div>
+                                <!-- <ul class="card-action-list">
+                                <li class="card-action-item">
+                                  <button class="card-action-btn" aria-labelledby="card-label-1">
+                                    <ion-icon name="cart-outline"></ion-icon>
+                                  </button>
+
+                                  <div class="card-action-tooltip" id="card-label-1">Add to Cart</div>
+                                </li>
+
+                                <li class="card-action-item">
+                                  <button class="card-action-btn" aria-labelledby="card-label-2">
+                                    <ion-icon name="heart-outline"></ion-icon>
+                                  </button>
+
+                                  <div class="card-action-tooltip" id="card-label-2">Add to Whishlist</div>
+                                </li>
+
+                                <li class="card-action-item">
+                                  <button class="card-action-btn" aria-labelledby="card-label-3">
+                                    <ion-icon name="eye-outline"></ion-icon>
+                                  </button>
+
+                                  <div class="card-action-tooltip" id="card-label-3">Quick View</div>
+                                </li>
+
+                                <li class="card-action-item">
+                                  <button class="card-action-btn" aria-labelledby="card-label-4">
+                                    <ion-icon name="repeat-outline"></ion-icon>
+                                  </button>
+
+                                  <div class="card-action-tooltip" id="card-label-4">Compare</div>
+                                </li>
+
+                                </ul> -->
+                              </figure>
+                            </div>
+                          </div>
+                          <div class="col-md-4">   
+                            <div class="cta-card2" >
+                                      <div class="card-body">
+                              <div class="card-cat">
+                              <a href="../#" class="card-cat-link">${Thecat}</a>
+                              </div>
+                              <h1 class="card-title">
+                                <a href="/product.html?${e.title}">${e.title}</a>
+                                </h1>
+                                <div class="card-cat mt-5">
+                                  <p class="card-text">${e.description}</p>
+                                  <p class="card-text">
+                                    <span class="material-symbols-outlined" style="font-size: 20px;top: 5px;position: relative;">
+                                    weight
+                                    </span>
+                                    weight : ${e.attributes['weight']}
+                                  </p>
+                                  <p class="card-text">
+                                    <span class="material-symbols-outlined" style="font-size: 20px;top: 5px;position: relative;">
+                                      square_foot
+                                    </span>
+                                    length : ${e.dimensions['length']}
+                                  </p>
+                                  <p class="card-text">
+                                    <span class="material-symbols-outlined" style="font-size: 20px;top: 5px;position: relative;">
+                                    width
+                                    </span>
+                                    width : ${e.dimensions['width']}
+                                  </p>
+                                  <p class="card-text">
+                                    <span class="material-symbols-outlined" style="font-size: 20px;top: 5px;position: relative;">
+                                    height
+                                    </span>
+                                    height : ${e.dimensions['height']}
+                                  </p>
+                                  
+                                  </div>        
+                                <data class="card-price" value="${realPrace}">$ ${realPrace} <del> $ ${e.price}</del></data>         
+                            </div>
+                            </div>        
+                                  </div>
+                        </div>
+                      </div>
+                    </li>
+
+        `
+          }
+        });
+
+      })
+      .catch((error) => console.error(error));
+
+  </script>
+
+  <!-- 
+    - ionicon link
+  -->
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+</body>
+
+</html>
