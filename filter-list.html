@@ -190,114 +190,17 @@
   <main>
     <article>
 
-      <!-- 
-        - #HERO
-      -->
-
-      <section class="section hero" id="hero" style="background-image: url('./assets/images/hero-banner.jpg')">
-        <div class="container">
-
-          <h2 class="h1 hero-title">
-            New style <strong>Welcome to Raffia Heaven </strong>
-          </h2>
-
-          <p class="hero-text">
-
-
-            Hey there! Step into our world where raffia rules! Discover eco-friendly crafts, stylish décor, and more.
-            Let's weave wonders together! #RaffiaCrafts #SustainableLiving
-
-
-          </p>
-
-          <button class="btn btn-primary">
-            <span>Shop Now</span>
-
-            <ion-icon name="arrow-forward-outline" aria-hidden="true"></ion-icon>
-          </button>
-
-        </div>
-      </section>
-
-
-
-
-
-      <!-- 
-        - #COLLECTION
-      -->
-
-      <section class="section collection" id="collection">
-        <div class="container">
-
-          <ul class="collection-list has-scrollbar" id="collection">
-
-            <li>
-              <div class="collection-card" style="background:  rgb(173, 216, 230);">
-                <span class="material-symbols-outlined">
-                  light
-                </span>
-                <h3 class="h4 card-title">hanging lamp Collections</h3>
-
-                <a href="../#" class="btn btn-secondary">
-                  <span>Explore All</span>
-
-                  <ion-icon name="arrow-forward-outline" aria-hidden="true"></ion-icon>
-                </a>
-              </div>
-            </li>
-
-            <li>
-              <div class="collection-card" style="background:  rgb(230, 230, 250);">
-                <span class="material-symbols-outlined">
-                  floor_lamp
-                </span>
-                <h3 class="h4 card-title">standing lamp Collections</h3>
-
-                <a href="../#" class="btn btn-secondary">
-                  <span>Explore All</span>
-
-                  <ion-icon name="arrow-forward-outline" aria-hidden="true"></ion-icon>
-                </a>
-              </div>
-            </li>
-
-            <li>
-              <div class="collection-card" style="background:  rgb(64, 224, 208);">
-                <span class="material-symbols-outlined">
-                  wall_lamp
-                </span>
-                <h3 class="h4 card-title">wall lamp Collections</h3>
-
-                <a href="../#" class="btn btn-secondary">
-                  <span>Explore All</span>
-
-                  <ion-icon name="arrow-forward-outline" aria-hidden="true"></ion-icon>
-                </a>
-              </div>
-            </li>
-
-          </ul>
-
-        </div>
-      </section>
-
-
-
-
-
-      <!-- 
-        - #PRODUCT
-      -->
-
       <section class="section product" id="product">
         <div class="container">
 
           <h2 class="h2 section-title">Bestsellers Products</h2>
 
           <ul class="filter-list">
-          </ul>
 
+          </ul>
+          <ul class="product-list" id="theProduct">
+          </ul>
+          <h2 class="h2 section-title">Other Products</h2>
           <ul class="product-list" id="product-list">
           </ul>
 
@@ -308,9 +211,6 @@
 
 
 
-      <!-- 
-        - #CTA
-      -->
 
       <section class="section cta" id="cta">
         <div class="container">
@@ -362,7 +262,7 @@
       <section class="section special">
         <div class="container">
 
-          <div class="special-banner" 
+          <div class="special-banner"
             style="background-image: url('./assets/images/hanging_lamp__26_-removebg-preview.png')">
             <h2 class="h3 banner-title">New Trend Edition</h2>
 
@@ -376,7 +276,7 @@
           <div class="special-product">
 
             <h2 class="h2 section-title">
-              <span class="text" >mirror Special</span>
+              <span class="text">mirror Special</span>
 
               <span class="line"></span>
             </h2>
@@ -808,7 +708,6 @@
 
 
 
-
   <!-- 
     - #GO TO TOP
   -->
@@ -825,7 +724,123 @@
     - custom js link
   -->
   <script src="./assets/js/script.js"></script>
+  <script>
+    let product_name = window.location.href.replace('http://127.0.0.1:5500/filter-list.html?', '');
+    let type = ""
+    console.log(product_name);
 
+    const requestOptions1 = {
+      method: "GET",
+      redirect: "follow"
+    };
+    fetch("https://eu-west-2.aws.data.mongodb-api.com/app/raffiahaven-lrlrn/endpoint/type", requestOptions1)
+      .then((response) => response.text())
+      .then((result) => {
+        const data = JSON.parse(result)
+        data.forEach(element => {
+          if (element['_id'] == product_name) {
+            type = element.title
+          }
+        });
+      })
+      .catch((error) => console.error(error));
+    // --------------------------------------
+    const requestOptions = {
+      method: "GET",
+      redirect: "follow"
+    };
+    fetch("https://eu-west-2.aws.data.mongodb-api.com/app/raffiahaven-lrlrn/endpoint/produt", requestOptions)
+      .then((response) => response.text())
+      .then((result) => {
+        const data = JSON.parse(result)
+        data.forEach((e, i) => {
+          let TheBadge = e.badge == "new" ? "new" : `-${e.badge}%`;
+          let realPrace = e.badge == "new" ? e.sizes[0].price : e.sizes[0].price - ((e.sizes[0].price * e.badge) / 100);
+          let Thecat = ""
+          e.cat.forEach((ca, index) => {
+            if (e.cat.length == index + 1) {
+              Thecat += `<a href="./hash/${ca}" class="card-cat-link">${ca}</a> `
+            } else {
+              Thecat += `<a href="./hash/${ca}" class="card-cat-link">${ca}</a> | `
+            }
+          });
+          if (e.type == type) {
+            document.getElementById('theProduct').innerHTML += `
+             <li class="product-item">
+                <div class="product-card" tabindex="0">
+
+                  <figure class="card-banner">
+                    <img src="${e.images[0]}" width="312" height="350" loading="lazy"
+                      alt="Air Jordan 7 Retro " class="image-contain">
+
+                    <div class="card-badge"> ${TheBadge}</div>
+
+                    <!-- <ul class="card-action-list">
+
+                      <li class="card-action-item">
+                        <button class="card-action-btn" aria-labelledby="card-label-1">
+                          <ion-icon name="cart-outline"></ion-icon>
+                        </button>
+
+                        <div class="card-action-tooltip" id="card-label-1">Add to Cart</div>
+                      </li>
+
+                      <li class="card-action-item">
+                        <button class="card-action-btn" aria-labelledby="card-label-2">
+                          <ion-icon name="heart-outline"></ion-icon>
+                        </button>
+
+                        <div class="card-action-tooltip" id="card-label-2">Add to Whishlist</div>
+                      </li>
+
+                      <li class="card-action-item">
+                        <button class="card-action-btn" aria-labelledby="card-label-3">
+                          <ion-icon name="eye-outline"></ion-icon>
+                        </button>
+
+                        <div class="card-action-tooltip" id="card-label-3">Quick View</div>
+                      </li>
+
+                      <li class="card-action-item">
+                        <button class="card-action-btn" aria-labelledby="card-label-4">
+                          <ion-icon name="repeat-outline"></ion-icon>
+                        </button>
+
+                        <div class="card-action-tooltip" id="card-label-4">Compare</div>
+                      </li>
+
+                    </ul> -->
+                  </figure>
+
+                  <div class="card-content">
+
+                    <div class="card-cat">
+                      <a href="#" class="card-cat-link">${Thecat}</a> 
+                    </div>
+
+                    <h3 class="h3 card-title">
+                      <a href="/product.html?${e.title}">${e.title}</a>
+                    </h3>
+
+                    <data class="card-price" value="170.85">$ ${realPrace} <del> $ ${e.sizes[0]["price"]}</del></data>
+
+                  </div>
+
+                </div>
+              </li>
+      
+  
+          `
+          }else{
+            document.getElementById('theProduct').innerHTML = `none !!!`
+          }
+        });
+
+      }
+      )
+      .catch((error) => console.error(error));
+
+  </script>
   <!-- 
     - ionicon link
   -->
