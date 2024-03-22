@@ -46,7 +46,7 @@ window.addEventListener('DOMContentLoaded', function () {
       const data = JSON.parse(result)
       data.forEach((e, i) => {
         let TheBadge = e.badge == "new" ? "new" : `-${e.badge}%`;
-        let realPrace = e.badge == "new" ? e.price : e.price - ((e.price * e.badge) / 100);
+        let realPrace = e.badge == "new" ? e['sizes'][0]['price'] : e['sizes'][0]['price'] - ((e['sizes'][0]['price'] * e.badge) / 100);
         let Thecat = ""
         e.cat.forEach((ca, index) => {
           if (e.cat.length == index + 1) {
@@ -55,12 +55,12 @@ window.addEventListener('DOMContentLoaded', function () {
             Thecat += `<a href="./hash/${ca}" class="card-cat-link">${ca}</a> | `
           }
         });
-        document.getElementsByClassName('product-list')[0].innerHTML += `
+        document.getElementById('product-list').innerHTML += `
         <li class="product-item">
         <div class="product-card" tabindex="0">
   
           <figure class="card-banner">
-            <img src="./assets/images/${e.type}/${e.type} (${i + 1}).jpg" width="312" height="350" loading="lazy"
+            <img src="${e.images[0]}" width="312" height="350" loading="lazy"
               alt="Air Jordan 7 Retro " class="image-contain">
   
             <div class="card-badge"> ${TheBadge}</div>
@@ -112,7 +112,7 @@ window.addEventListener('DOMContentLoaded', function () {
               <a href="/product.html?${e['_id']}">${e.title}</a>
             </h3>
   
-            <data class="card-price" value="170.85">$ ${realPrace} <del> $ ${e.price}</del></data>
+            <data class="card-price" value="170.85">$ ${realPrace} <del> $ ${e['sizes'][0]['price']}</del></data>
   
           </div>
   
@@ -131,21 +131,17 @@ window.addEventListener('DOMContentLoaded', function () {
   const raw = JSON.stringify({
     "type": "mirror"
   });
-
   const requestOptions = {
-    method: "POST",
-    headers: myHeaders,
-    body: raw,
+    method: "GET",
     redirect: "follow"
   };
-
-  fetch("https://eu-west-2.aws.data.mongodb-api.com/app/raffiahaven-lrlrn/endpoint/productType", requestOptions)
+  fetch("https://eu-west-2.aws.data.mongodb-api.com/app/raffiahaven-lrlrn/endpoint/produt", requestOptions)
     .then((response) => response.text())
     .then((result) => {
       const data = JSON.parse(result)
       data.forEach((e, i) => {
         let TheBadge = e.badge == "new" ? "new" : `-${e.badge}%`;
-        let realPrace = e.badge == "new" ? e.price : e.price - ((e.price * e.badge) / 100);
+        let realPrace = e.badge == "new" ? e.sizes[0].price : e.sizes[0].price - ((e.sizes[0].price * e.badge) / 100);
         let Thecat = ""
         e.cat.forEach((ca, index) => {
           if (e.cat.length == index + 1) {
@@ -154,73 +150,78 @@ window.addEventListener('DOMContentLoaded', function () {
             Thecat += `<a href="./hash/${ca}" class="card-cat-link">${ca}</a> | `
           }
         });
-        document.getElementById('mirror-scrollbar').innerHTML += `
-      <li class="product-item">
-      <div class="product-card" tabindex="0">
+        if (i < 4) {
+          document.getElementById('special-scrollbar').innerHTML += `
+          <li class="product-item">
+            <div class="product-card" tabindex="0">
 
-        <figure class="card-banner">
-          <img src="./assets/images/${e.type}/${e.type} (${i + 1}).jpg" width="312" height="350" loading="lazy"
-            alt="Air Jordan 7 Retro " class="image-contain">
+              <figure class="card-banner">
+                <img src="${e.images[0]}" width="312" height="350" loading="lazy"
+                  alt="Air Jordan 7 Retro " class="image-contain">
 
-          <div class="card-badge"> ${TheBadge}</div>
+                  <div class="card-badge"> ${TheBadge}</div>
 
-          <!-- <ul class="card-action-list">
+                  <!-- <ul class="card-action-list">
 
-            <li class="card-action-item">
-              <button class="card-action-btn" aria-labelledby="card-label-1">
-                <ion-icon name="cart-outline"></ion-icon>
-              </button>
+                    <li class="card-action-item">
+                      <button class="card-action-btn" aria-labelledby="card-label-1">
+                        <ion-icon name="cart-outline"></ion-icon>
+                      </button>
 
-              <div class="card-action-tooltip" id="card-label-1">Add to Cart</div>
-            </li>
+                      <div class="card-action-tooltip" id="card-label-1">Add to Cart</div>
+                    </li>
 
-            <li class="card-action-item">
-              <button class="card-action-btn" aria-labelledby="card-label-2">
-                <ion-icon name="heart-outline"></ion-icon>
-              </button>
+                    <li class="card-action-item">
+                      <button class="card-action-btn" aria-labelledby="card-label-2">
+                        <ion-icon name="heart-outline"></ion-icon>
+                      </button>
 
-              <div class="card-action-tooltip" id="card-label-2">Add to Whishlist</div>
-            </li>
+                      <div class="card-action-tooltip" id="card-label-2">Add to Whishlist</div>
+                    </li>
 
-            <li class="card-action-item">
-              <button class="card-action-btn" aria-labelledby="card-label-3">
-                <ion-icon name="eye-outline"></ion-icon>
-              </button>
+                    <li class="card-action-item">
+                      <button class="card-action-btn" aria-labelledby="card-label-3">
+                        <ion-icon name="eye-outline"></ion-icon>
+                      </button>
 
-              <div class="card-action-tooltip" id="card-label-3">Quick View</div>
-            </li>
+                      <div class="card-action-tooltip" id="card-label-3">Quick View</div>
+                    </li>
 
-            <li class="card-action-item">
-              <button class="card-action-btn" aria-labelledby="card-label-4">
-                <ion-icon name="repeat-outline"></ion-icon>
-              </button>
+                    <li class="card-action-item">
+                      <button class="card-action-btn" aria-labelledby="card-label-4">
+                        <ion-icon name="repeat-outline"></ion-icon>
+                      </button>
 
-              <div class="card-action-tooltip" id="card-label-4">Compare</div>
-            </li>
+                      <div class="card-action-tooltip" id="card-label-4">Compare</div>
+                    </li>
 
-          </ul> -->
-        </figure>
+                  </ul> -->
+              </figure>
 
-        <div class="card-content">
+              <div class="card-content">
 
-          <div class="card-cat">
-            <a href="#" class="card-cat-link">${Thecat}</a> 
-          </div>
+                <div class="card-cat">
+                  <a href="#" class="card-cat-link">${Thecat}</a>
+                </div>
 
-          <h3 class="h3 card-title">
-            <a href="/product.html?${e.title}">${e.title}</a>
-          </h3>
+                <h3 class="h3 card-title">
+                  <a href="/product.html?${e.title}">${e.title}</a>
+                </h3>
 
-          <data class="card-price" value="170.85">$ ${realPrace} <del> $ ${e.price}</del></data>
+                <data class="card-price" value="170.85">$ ${realPrace} <del> $ ${e.sizes[0]["price"]}</del></data>
 
-        </div>
+              </div>
 
-      </div>
-    </li>
-      `
+            </div>
+          </li>
+    
 
+        `
+        }
       });
-    })
+
+    }
+    )
     .catch((error) => console.error(error));
 })
 window.addEventListener('DOMContentLoaded', function () {
@@ -236,7 +237,7 @@ window.addEventListener('DOMContentLoaded', function () {
       data.forEach((e, i) => {
         document.getElementsByClassName('filter-list')[0].innerHTML += `
             <li>
-                      <button class="filter-btn">${e.title}</button>
+                      <a href="/filter-list.html?${e._id}" class="filter-btn">${e.title}</a>
             </li>
         `
       });
