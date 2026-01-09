@@ -36,56 +36,13 @@
   <!-- 
     - preload banner
   -->
-  <link rel="preload" href="./assets/images/hero-banner.jpg" as="image">
-  <!--  -->
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
-  <script type="text/javascript">
-    (function () {
-      // https://dashboard.emailjs.com/admin/account
-      emailjs.init('9_go1hMMzLv0A1Qqk');
-    })();
-  </script>
-  <script type="text/javascript">
-    window.onload = function () {
-      document.getElementById('contact-form').addEventListener('submit', function (event) {
-        event.preventDefault();
-        // generate a five digit number for the contact_number variable
-        this.contact_number.value = Math.random() * 100000 | 0;
-        // these IDs from the previous steps
-        emailjs.sendForm('service_bqkwms3', 'template_qzqxr0h', this)
-          .then(function () {
-            console.log('SUCCESS!');
-
-            document.getElementById("msg").innerHTML = `
- <div class="alert alert-success alert-dismissible fade show" role="alert">
-     <div>
-       Message has been sent
-     </div>
-     <button 
-     type="button" 
-     class="btn-close" 
-     data-bs-dismiss="alert"
-     aria-label="Close"></button>
- </div>
- `
-            document.getElementById("user_name").value = ""
-            document.getElementById("user_email").value = ""
-            document.getElementById("Object").value = ""
-            document.getElementById("message").value = ""
-          }, function (error) {
-            console.log('FAILED...', error);
-          });
-      });
-    }
-  </script>
-  <!--  -->
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-CT6492Z71H"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
+    function gtag() { dataLayer.push(arguments); }
     gtag('js', new Date());
-  
+
     gtag('config', 'G-CT6492Z71H');
   </script>
 </head>
@@ -95,7 +52,6 @@
   <!-- 
     - #HEADER
   -->
-
   <header class="header" data-header>
     <div class="container">
 
@@ -118,7 +74,6 @@
         <a href="../#" class="logo">
           <img src="./assets/images/logo.svg" width="190" height="50" alt="raffia haven logo">
         </a>
-
         <ul class="navbar-list">
 
           <li class="navbar-item">
@@ -138,14 +93,36 @@
           <li class="navbar-item">
             <a href="#service" class="navbar-link">Service</a>
           </li>
-
-
           <li class="navbar-item">
-            <button data-bs-toggle="modal" data-bs-target="#contact" data-bs-whatever="@mdo"
-              class="navbar-link">Contact</button>
+            <a class="navbar-link"
+              href="https://mail.google.com/mail/?view=cm&fs=1&to=raffiahaven@gmail.com&su=Contact&body=Hello"
+              target="_blank">Contact</a>
           </li>
-
         </ul>
+        <li>
+          <!-- Added clearer aria-label and linked it to the offcanvas target -->
+          <button class="nav-action-btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight"
+            aria-controls="offcanvasRight" aria-label="View shopping basket, 0 items">
+
+            <ion-icon name="bag-outline" aria-hidden="true"></ion-icon>
+            <!-- Removed aria-hidden so screen readers can announce the count if needed -->
+            <data class="nav-action-badge" id="shopingListValue" value="0">0</data>
+          </button>
+        </li>
+        <!-- <ul class="nav-action-list">
+          <li>
+           
+            <button class="nav-action-btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight"
+              aria-controls="offcanvasRight" aria-label="View shopping basket, 0 items">
+
+              <ion-icon name="bag-outline" aria-hidden="true"></ion-icon>
+             
+              <data class="nav-action-badge" id="shopingListValue" value="0">0</data>
+            </button>
+          </li>
+        </ul> -->
+
+
 
         <!-- <ul class="nav-action-list">
 
@@ -184,8 +161,8 @@
               <data class="nav-action-badge" value="4" aria-hidden="true">4</data>
             </button>
           </li>
-
         </ul> -->
+
 
       </nav>
 
@@ -653,66 +630,70 @@
 
                 <tr class="table-row">
                   <th class="table-head" scope="row">Sun:</th>
-
                   <td class="table-data">Closed</td>
                 </tr>
-
               </tbody>
             </table>
-
           </div>
-
           <div class="footer-list">
-
             <p class="footer-list-title">Newsletter</p>
-
             <p class="newsletter-text">
               Authoritatively morph 24/7 potentialities with error-free partnerships.
             </p>
-
             <form action="" class="newsletter-form">
               <input type="email" name="email" required placeholder="Email Address" class="newsletter-input">
-
               <button type="submit" class="btn btn-primary">Subscribe</button>
             </form>
-
           </div>
-
         </div>
-
       </div>
     </div>
-
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+      <div id="saveToast" class="toast align-items-center text-bg-success border-0" role="alert">
+        <div class="d-flex">
+          <div class="toast-body">
+            Data added successfully ✅
+          </div>
+          <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+        </div>
+      </div>
+    </div>
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+      <div class="offcanvas-header">
+        <h3 class="offcanvas-title" id="offcanvasScrollingLabel">shoping list</h3>
+        <h3 class="offcanvas-title" id="offcanvasScrollingLabel"><a href="./list.html">go to the list </a></h3>
+      </div>
+      <div class="offcanvas-body">
+        <div id="shopingList"></div>
+      </div>
+      <div class="btn-group btn-group-lg" role="group" aria-label="Large button group">
+        <button type="button" class="btn btn-outline-danger text-center" style="justify-content: center;"
+          data-bs-dismiss="offcanvas" aria-label="Close">
+          <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-x"
+            viewBox="0 0 16 16">
+            <path
+              d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708" />
+          </svg>
+        </button>
+        <button type="button" onclick="clearAll()" class="btn btn-outline-danger text-center"
+          style="justify-content: center;">
+          <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-file-x"
+            viewBox="0 0 16 16">
+            <path
+              d="M6.146 6.146a.5.5 0 0 1 .708 0L8 7.293l1.146-1.147a.5.5 0 1 1 .708.708L8.707 8l1.147 1.146a.5.5 0 0 1-.708.708L8 8.707 6.854 9.854a.5.5 0 0 1-.708-.708L7.293 8 6.146 6.854a.5.5 0 0 1 0-.708">
+            </path>
+            <path
+              d="M4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm0 1h8a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1">
+            </path>
+          </svg>
+        </button>
+      </div>
+    </div>
     <div class="footer-bottom">
       <div class="container">
         <p class="copyright">
           &copy; 2024 <a href="../#" class="copyright-link">raffia_haven</a>. All Rights Reserved
         </p>
-
-      </div>
-    </div>
-    <div class="modal fade" id="contact" tabindex="-1" aria-labelledby="contactLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h1 class="modal-title fs-5" id="contactLabel">New message</h1>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            <div id="msg"></div>
-            <form id="contact-form">
-              <input type="hidden" name="contact_number" class="form-control">
-              <input type="text" placeholder="text" id="user_name" name="user_name" id="inputStyle">
-              <input type="email" placeholder="email" id="user_email" name="user_email" id="inputStyle">
-              <input type="text" placeholder="text" id="Object" name="Object" id="inputStyle">
-              <textarea id="message" placeholder="message" name="message" id="inputStyle"></textarea>
-              <div class="modal-footer">
-                <button type="submit" id="buttonStyle">Send</button>
-                <button type="button" data-bs-dismiss="modal" id="buttonStyle">Close</button>
-              </div>
-            </form>
-          </div>
-        </div>
       </div>
     </div>
   </footer>
@@ -741,111 +722,49 @@
       method: "GET",
       redirect: "follow"
     };
-    let product_name = window.location.href.replace('https://raffiahaven.github.io/product.html?', '');
-    fetch("https://eu-west-2.aws.data.mongodb-api.com/app/raffiahaven-lrlrn/endpoint/produt", requestOptions)
-      .then((response) => response.text())
-      .then((result) => {
-        const data = JSON.parse(result)
+    // let product_name = window.location.href.replace('https://raffiahaven.github.io/product.html?', '');
+    let product_name = window.location.href.replace('http://127.0.0.1:5500/product.html?', '');
+    fetch("./assets/json/Catalog.json")
+      .then(response => {
+        if (!response.ok) {
+          throw new Error("JSON not found");
+        }
+        return response.json();
+      })
+      .then((data) => {
         data.forEach((e, i) => {
-          if (product_name == e['_id']) {
-            let TheBadge = e.badge == "new" ? "new" : `-${e.badge}%`;
-            let realPrace = e.badge == "new" ? e['sizes'][0]['price'] : e['sizes'][0]['price'] - ((e['sizes'][0]['price'] * e.badge) / 100);
-            let Thecat = ""
-            e.cat.forEach((ca, index) => {
-              if (e.cat.length == index + 1) {
-                Thecat += `<a href="./hash/${ca}" class="card-cat-link">${ca}</a> `
-              } else {
-                Thecat += `<a href="./hash/${ca}" class="card-cat-link">${ca}</a> | `
-              }
-            });
-            let thesizes = ""
-            e.sizes.forEach(e => {
-              thesizes += `
+          if (product_name == e.ID) {
+            let TheBadge = e.BADGE == "new" ? "new" : `-${e.BADGE}%`;
+            let realPrace = e.BADGE == "new" ? e.PRICE : e.PRICE - ((e.PRICE * e.BADGE) / 100);
+            let Thecat = `<a href="./hash/${e.TYPE}" class="card-cat-link">${e.TYPE}</a> `
+            let listImg = `
               <div class="carousel-item active">
-                <div class="card rounded-5 p-3 d-block w-100">
-                  <div class="card-body">
-                    <p class="card-text h2">
-                      ${e.attributes['size']}
-                    </p>
-                    <p class="card-text">
-                      <span class="material-symbols-outlined" style="font-size: 20px;top: 5px;position: relative;">
-                        weight
-                      </span>
-                      weight : ${e.attributes['weight']}
-                    </p>
-                    <p class="card-text">
-                      <span class="material-symbols-outlined" style="font-size: 20px;top: 5px;position: relative;">
-                        square_foot
-                      </span>
-                      length : ${e.dimensions['length']}
-                    </p>
-                    <p class="card-text">
-                      <span class="material-symbols-outlined" style="font-size: 20px;top: 5px;position: relative;">
-                        width
-                      </span>
-                      width : ${e.dimensions['width']}
-                    </p>
-                    <p class="card-text">
-                      <span class="material-symbols-outlined" style="font-size: 20px;top: 5px;position: relative;">
-                        height
-                      </span>
-                      height : ${e.dimensions['height']}
-                    </p>
-                  </div>
-                  <div class="card-body text-end">
-                    <data class="card-price h3" value="${realPrace}">$ ${realPrace} <del> $ ${e.price}</del></data>
-                  </div>
-                </div>
-              </div>
-              `
-            });
-            let listImg = ""
-            let placeInd = ""
-            e.images.forEach((e, i) => {
-              if (i == 0) {
-                listImg += `
-              <div class="carousel-item active">
-                <img src="${e}"  class="d-block w-100" loading="lazy" alt="..."  >       
+                <img src="./assets/resources/${e.ID}.jpg"  class="d-block w-100" loading="lazy" alt="..."  >       
                </div>             
               `
-                placeInd += `
-                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="${i}" class="active" aria-current="true" aria-label="Slide ${i + 1}"></button>            
-              `
-              } else {
-                listImg += `
-              <div class="carousel-item ">
-                <img src="${e}"  class="d-block w-100" loading="lazy" alt="..."  >       
-              </div>             
-              `
-                placeInd += `
-                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="${i}" aria-label="Slide ${i + 1}"></button>             
-              `
-              }
-            });
+
+
             document.getElementById('theProduct').innerHTML += `
-            <li class="product-item">
-              <div class="container text-center">
-                <div class="row">
-                  <div class="col-md-6">
-                    <div class="product-card" tabindex="0">
-                      <figure class="card-banner" style="height: 100%; aspect-ratio: 1 / 1; object-fit: cover;">
+    <li class="product-item">
+    <div class="container text-center">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="product-card" tabindex="0">
+                    <figure class="card-banner" style="height: 100%; aspect-ratio: 1 / 1; object-fit: cover;">
                         <div id="carouselExample" class="carousel slide image-contain">
-                          <div class="carousel-indicators">
-                            ${placeInd}
-                          </div>
-                          <div class="carousel-inner">
-                            ${listImg}
-                          </div>
-                          <button class="carousel-control-prev " type="button" data-bs-target="#carouselExample"
-                            data-bs-slide="prev">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Previous</span>
-                          </button>
-                          <button class="carousel-control-next " type="button" data-bs-target="#carouselExample"
-                            data-bs-slide="next">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Next</span>
-                          </button>
+                            <div class="carousel-inner">
+                                ${listImg}
+                            </div>
+                            <!-- <button class="carousel-control-prev " type="button" data-bs-target="#carouselExample"
+                                data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Previous</span>
+                            </button>
+                            <button class="carousel-control-next " type="button" data-bs-target="#carouselExample"
+                                data-bs-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Next</span>
+                            </button> -->
                         </div>
                         <div class="card-badge"> ${TheBadge}</div>
                         <!-- <ul class="card-action-list">
@@ -882,44 +801,176 @@
                           </li>
 
                           </ul> -->
-                      </figure>
-                    </div>
-                  </div>
-                  <div class="col-md-6">
-                    <div class="cta-card2">
-                      <div class="card-body">
-                        <div class="card-cat">
-                          <a href="../#" class="card-cat-link">${Thecat}</a>
-                        </div>
-                        <h1 class="card-title">
-                          <a href="/product.html?${e.title}">${e.title}</a>
-                        </h1>
-                        <div class="card-cat mt-5">
-                          <p class="card-text">${e.description}</p>
-                        </div>
-                        <div class="card-cat mt-5">
-                          <div id="carouselExample2" class="carousel slide">
-                            <div class="carousel-inner">
-                              ${thesizes}
-                            </div>
-                            <button class="carousel-control-prev " type="button" data-bs-target="#carouselExample2"
-                              data-bs-slide="prev">
-                              <span class="carousel-control-prev-icon bg-black rounded-5 px-4" aria-hidden="true"></span>
-                              <span class="visually-hidden">Previous</span>
-                            </button>
-                            <button class="carousel-control-next " type="button" data-bs-target="#carouselExample2"
-                              data-bs-slide="next">
-                              <span class="carousel-control-next-icon bg-black rounded-5 px-4" aria-hidden="true"></span>
-                              <span class="visually-hidden">Next</span>
-                            </button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                    </figure>
                 </div>
-              </div>
-            </li>        
+            </div>
+            <div class="col-md-6">
+                <div class="cta-card2">
+                    <div class="card-body">
+                        <div class="card-cat">
+                            <a href="../#" class="card-cat-link">${Thecat}</a>
+                        </div>
+                        <h1 class="">
+                            <a href="/product.html?${e.ID}">${e.DESCRIPTION} ${e['DIMENTION W|D|H CM'].replace(/\|/g, " | ")}</a>
+                        </h1>
+                        <div class="card-body">
+                            <div class="card-cat mt-5">
+                                <div class="card rounded-5 p-3 d-block w-100">
+                                    <div class="card-body">
+                                        <p class="card-text">
+                                            <span class="material-symbols-outlined"
+                                                style="font-size: 20px;top: 5px;position: relative;">
+                                                category
+                                            </span>
+                                            TYPE : ${e['TYPE']}
+                                        </p>
+                                        <p class="card-text">
+                                            <span class="material-symbols-outlined"
+                                                style="font-size: 20px;top: 5px;position: relative;">
+                                                brick
+                                            </span>
+                                            MATERIAL : ${e['MATERIAL']}
+                                        </p>
+                                        <p class="card-text">
+                                            <span class="material-symbols-outlined"
+                                                style="font-size: 20px;top: 5px;position: relative;">
+                                                colors
+                                            </span>
+                                            COLOR : ${e['COLOR']}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-cat mt-5">
+                                <div class="card rounded-5 p-3 d-block w-100">
+                                    <div class="card-body">
+                                        <p class="card-text">
+                                            <span class="material-symbols-outlined"
+                                                style="font-size: 20px;top: 5px;position: relative;">
+                                                width
+                                            </span>
+                                            DIMENTION W|D|H CM
+                                        </p>
+                                        <p class="card-text">
+                                            <span class="material-symbols-outlined"
+                                                style="font-size: 20px;top: 5px;position: relative;">
+                                                square_foot
+                                            </span>
+                                            length : ${e['DIMENTION W|D|H CM'].split('|')[0]}
+                                        </p>
+                                        <p class="card-text">
+                                            <span class="material-symbols-outlined"
+                                                style="font-size: 20px;top: 5px;position: relative;">
+                                                width
+                                            </span>
+                                            width : ${e['DIMENTION W|D|H CM'].split('|')[1]}
+                                        </p>
+                                        <p class="card-text">
+                                            <span class="material-symbols-outlined"
+                                                style="font-size: 20px;top: 5px;position: relative;">
+                                                height
+                                            </span>
+                                            height : ${e['DIMENTION W|D|H CM'].split('|')[2]}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-cat mt-5">
+                                <div class="card rounded-5 p-3 d-block w-100">
+                                    <div class="card-body">
+                                        <p class="card-text">
+                                            <span class="material-symbols-outlined"
+                                                style="font-size: 20px;top: 5px;position: relative;">
+                                                width
+                                            </span>
+                                            PACKING W|D|H CM
+                                        </p>
+                                        <p class="card-text">
+                                            <span class="material-symbols-outlined"
+                                                style="font-size: 20px;top: 5px;position: relative;">
+                                                square_foot
+                                            </span>
+                                            length : ${e['PACKING W|D|H CM'].split('|')[0]}
+                                        </p>
+                                        <p class="card-text">
+                                            <span class="material-symbols-outlined"
+                                                style="font-size: 20px;top: 5px;position: relative;">
+                                                width
+                                            </span>
+                                            width : ${e['PACKING W|D|H CM'].split('|')[1]}
+                                        </p>
+                                        <p class="card-text">
+                                            <span class="material-symbols-outlined"
+                                                style="font-size: 20px;top: 5px;position: relative;">
+                                                height
+                                            </span>
+                                            height : ${e['PACKING W|D|H CM'].split('|')[2]}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-cat mt-5">
+                                <div class="card rounded-5 p-3 d-block w-100">
+                                    <div class="card-body">
+                                        <p class="card-text">
+                                            <span class="material-symbols-outlined"
+                                                style="font-size: 20px;top: 5px;position: relative;">
+                                                package_2
+                                            </span>
+                                            SIZE m³ : ${e['SIZE m³']}
+                                        </p>
+                                        <p class="card-text">
+                                            <span class="material-symbols-outlined"
+                                                style="font-size: 20px;top: 5px;position: relative;">
+                                                local_shipping
+                                            </span>
+                                            LOAD 20 DC : ${e['LOAD 20 DC']}
+                                        </p>
+                                        <p class="card-text">
+                                            <span class="material-symbols-outlined"
+                                                style="font-size: 20px;top: 5px;position: relative;">
+                                                local_shipping
+                                            </span>
+                                            LOAD 40 DC : ${e['LOAD 40 DC']}
+                                        </p>
+                                        <p class="card-text">
+                                            <span class="material-symbols-outlined"
+                                                style="font-size: 20px;top: 5px;position: relative;">
+                                                local_shipping
+                                            </span>
+                                            LOAD 40 HC : ${e['LOAD 40 HC']}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="card-text">
+                                <span class="material-symbols-outlined"
+                                    style="font-size: 20px;top: 5px;position: relative;">
+                                    report
+                                </span>
+                                REMARK : ${e['REMARK']}
+                            </p>
+                            <input type="number" id="qtyValue${e.ID}${e['DIMENTION W|D|H CM']}" class="form-label" value="1" min="1" >
+                        </div>
+                <div class="card-body text-end" onclick="addToList('${e.ID}', '${e['DIMENTION W|D|H CM']}')">
+                    <button class="card-action-btn" aria-labelledby="card-label-1">
+                        <ion-icon name="cart-outline"></ion-icon>
+                    </button>
+
+                    <div class="card-action-tooltip" id="card-label-1">Add to Cart</div>
+          
+                                          </div>
+                        <div class="card-body text-end">
+                            <data class="card-price h3" value="${realPrace}">
+                                ${e.PRICE} € </data>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</li> 
         `
           }
         });

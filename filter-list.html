@@ -39,45 +39,6 @@
   <link rel="preload" href="./assets/images/hero-banner.jpg" as="image">
   <!--  -->
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
-  <script type="text/javascript">
-    (function () {
-      // https://dashboard.emailjs.com/admin/account
-      emailjs.init('9_go1hMMzLv0A1Qqk');
-    })();
-  </script>
-  <script type="text/javascript">
-    window.onload = function () {
-      document.getElementById('contact-form').addEventListener('submit', function (event) {
-        event.preventDefault();
-        // generate a five digit number for the contact_number variable
-        this.contact_number.value = Math.random() * 100000 | 0;
-        // these IDs from the previous steps
-        emailjs.sendForm('service_bqkwms3', 'template_qzqxr0h', this)
-          .then(function () {
-            console.log('SUCCESS!');
-
-            document.getElementById("msg").innerHTML = `
-                     <div class="alert alert-success alert-dismissible fade show" role="alert">
-                         <div>
-                           Message has been sent
-                         </div>
-                         <button 
-                         type="button" 
-                         class="btn-close" 
-                         data-bs-dismiss="alert"
-                         aria-label="Close"></button>
-                     </div>
-                     `
-            document.getElementById("user_name").value = ""
-            document.getElementById("user_email").value = ""
-            document.getElementById("Object").value = ""
-            document.getElementById("message").value = ""
-          }, function (error) {
-            console.log('FAILED...', error);
-          });
-      });
-    }
-  </script>
   <!--  -->
 </head>
 
@@ -86,6 +47,7 @@
   <!-- 
     - #HEADER
   -->
+
 
   <header class="header" data-header>
     <div class="container">
@@ -109,7 +71,6 @@
         <a href="../#" class="logo">
           <img src="./assets/images/logo.svg" width="190" height="50" alt="raffia haven logo">
         </a>
-
         <ul class="navbar-list">
 
           <li class="navbar-item">
@@ -129,14 +90,36 @@
           <li class="navbar-item">
             <a href="#service" class="navbar-link">Service</a>
           </li>
-
-
           <li class="navbar-item">
-            <button data-bs-toggle="modal" data-bs-target="#contact" data-bs-whatever="@mdo"
-              class="navbar-link">Contact</button>
+            <a class="navbar-link"
+              href="https://mail.google.com/mail/?view=cm&fs=1&to=raffiahaven@gmail.com&su=Contact&body=Hello"
+              target="_blank">Contact</a>
           </li>
-
         </ul>
+        <li>
+          <!-- Added clearer aria-label and linked it to the offcanvas target -->
+          <button class="nav-action-btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight"
+            aria-controls="offcanvasRight" aria-label="View shopping basket, 0 items">
+
+            <ion-icon name="bag-outline" aria-hidden="true"></ion-icon>
+            <!-- Removed aria-hidden so screen readers can announce the count if needed -->
+            <data class="nav-action-badge" id="shopingListValue" value="0">0</data>
+          </button>
+        </li>
+        <!-- <ul class="nav-action-list">
+          <li>
+           
+            <button class="nav-action-btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight"
+              aria-controls="offcanvasRight" aria-label="View shopping basket, 0 items">
+
+              <ion-icon name="bag-outline" aria-hidden="true"></ion-icon>
+             
+              <data class="nav-action-badge" id="shopingListValue" value="0">0</data>
+            </button>
+          </li>
+        </ul> -->
+
+
 
         <!-- <ul class="nav-action-list">
 
@@ -175,8 +158,8 @@
               <data class="nav-action-badge" value="4" aria-hidden="true">4</data>
             </button>
           </li>
-
         </ul> -->
+
 
       </nav>
 
@@ -670,37 +653,52 @@
 
       </div>
     </div>
-
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+      <div id="saveToast" class="toast align-items-center text-bg-success border-0" role="alert">
+        <div class="d-flex">
+          <div class="toast-body">
+            Data added successfully ✅
+          </div>
+          <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+        </div>
+      </div>
+    </div>
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+      <div class="offcanvas-header">
+        <h3 class="offcanvas-title" id="offcanvasScrollingLabel">shoping list</h3>
+        <h3 class="offcanvas-title" id="offcanvasScrollingLabel"><a href="./list.html">go to the list </a></h3>
+      </div>
+      <div class="offcanvas-body">
+        <div id="shopingList"></div>
+      </div>
+      <div class="btn-group btn-group-lg" role="group" aria-label="Large button group">
+        <button type="button" class="btn btn-outline-danger text-center" style="justify-content: center;"
+          data-bs-dismiss="offcanvas" aria-label="Close">
+          <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-x"
+            viewBox="0 0 16 16">
+            <path
+              d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708" />
+          </svg>
+        </button>
+        <button type="button" onclick="clearAll()" class="btn btn-outline-danger text-center"
+          style="justify-content: center;">
+          <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-file-x"
+            viewBox="0 0 16 16">
+            <path
+              d="M6.146 6.146a.5.5 0 0 1 .708 0L8 7.293l1.146-1.147a.5.5 0 1 1 .708.708L8.707 8l1.147 1.146a.5.5 0 0 1-.708.708L8 8.707 6.854 9.854a.5.5 0 0 1-.708-.708L7.293 8 6.146 6.854a.5.5 0 0 1 0-.708">
+            </path>
+            <path
+              d="M4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm0 1h8a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1">
+            </path>
+          </svg>
+        </button>
+      </div>
+    </div>
     <div class="footer-bottom">
       <div class="container">
         <p class="copyright">
           &copy; 2024 <a href="../#" class="copyright-link">raffia_haven</a>. All Rights Reserved
         </p>
-
-      </div>
-    </div>
-    <div class="modal fade" id="contact" tabindex="-1" aria-labelledby="contactLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h1 class="modal-title fs-5" id="contactLabel">New message</h1>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            <div id="msg"></div>
-            <form id="contact-form">
-              <input type="hidden" name="contact_number" class="form-control">
-              <input type="text" placeholder="text" id="user_name" name="user_name" id="inputStyle">
-              <input type="email" placeholder="email" id="user_email" name="user_email" id="inputStyle">
-              <input type="text" placeholder="text" id="Object" name="Object" id="inputStyle">
-              <textarea id="message" placeholder="message" name="message" id="inputStyle"></textarea>
-              <div class="modal-footer">
-                <button type="submit" id="buttonStyle">Send</button>
-                <button type="button" data-bs-dismiss="modal" id="buttonStyle">Close</button>
-              </div>
-            </form>
-          </div>
-        </div>
       </div>
     </div>
   </footer>
@@ -725,120 +723,113 @@
   -->
   <script src="./assets/js/script.js"></script>
   <script>
-    let product_name = window.location.href.replace('https://raffiahaven.github.io/filter-list.html?', '');
+    // let product_name = window.location.href.replace('https://raffiahaven.github.io/filter-list.html?', '');
+    let product_name = window.location.href.replace('http://127.0.0.1:5500/filter-list.html?', '');
     let type = ""
-    console.log(product_name);
-
-    const requestOptions1 = {
-      method: "GET",
-      redirect: "follow"
-    };
-    fetch("https://eu-west-2.aws.data.mongodb-api.com/app/raffiahaven-lrlrn/endpoint/type", requestOptions1)
-      .then((response) => response.text())
-      .then((result) => {
-        const data = JSON.parse(result)
-        data.forEach(element => {
-          if (element['_id'] == product_name) {
-            type = element.title
+    fetch("./assets/json/Types.json")
+      .then(response => {
+        if (!response.ok) {
+          throw new Error("JSON not found");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        data.forEach((e, i) => {
+          if (e.ID == product_name) {
+            type = e.NAME
+          }
+          if (e.NAME == product_name) {
+            type = e.NAME
           }
         });
-      })
+        document.querySelector('.section-title').innerHTML = `${type} Products`
+      }
+      )
       .catch((error) => console.error(error));
+
     // --------------------------------------
-    const requestOptions = {
-      method: "GET",
-      redirect: "follow"
-    };
-    fetch("https://eu-west-2.aws.data.mongodb-api.com/app/raffiahaven-lrlrn/endpoint/produt", requestOptions)
-      .then((response) => response.text())
-      .then((result) => {
-        const data = JSON.parse(result)
+
+    fetch("./assets/json/Catalog.json")
+      .then(response => {
+        if (!response.ok) {
+          throw new Error("JSON not found");
+        }
+        return response.json();
+      })
+      .then((data) => {
         data.forEach((e, i) => {
-          let TheBadge = e.badge == "new" ? "new" : `-${e.badge}%`;
-          let realPrace = e.badge == "new" ? e.sizes[0].price : e.sizes[0].price - ((e.sizes[0].price * e.badge) / 100);
-          let Thecat = ""
-          e.cat.forEach((ca, index) => {
-            if (e.cat.length == index + 1) {
-              Thecat += `<a href="./hash/${ca}" class="card-cat-link">${ca}</a> `
-            } else {
-              Thecat += `<a href="./hash/${ca}" class="card-cat-link">${ca}</a> | `
-            }
-          });
-          if (e.type == type) {
+          let TheBadge = e.BADGE == "new" ? "new" : `-${e.BADGE}%`;
+          let Thecat = `<a href="/filter-list.html?${e.TYPE}" class="card-cat-link">${e.TYPE}</a>`;
+          if (e.TYPE == type) {
             document.getElementById('theProduct').innerHTML += `
-             <li class="product-item">
+              <li class="product-item">
                 <div class="product-card" tabindex="0">
-
+          
                   <figure class="card-banner">
-                    <img src="${e.images[0]}" width="312" height="350" loading="lazy"
+                    <img src="./assets/resources/${e.ID}.jpg" width="312" height="350" loading="lazy"
                       alt="Air Jordan 7 Retro " class="image-contain">
-
+          
                     <div class="card-badge"> ${TheBadge}</div>
-
+          
                     <!-- <ul class="card-action-list">
-
+          
                       <li class="card-action-item">
                         <button class="card-action-btn" aria-labelledby="card-label-1">
                           <ion-icon name="cart-outline"></ion-icon>
                         </button>
-
+          
                         <div class="card-action-tooltip" id="card-label-1">Add to Cart</div>
                       </li>
-
+          
                       <li class="card-action-item">
                         <button class="card-action-btn" aria-labelledby="card-label-2">
                           <ion-icon name="heart-outline"></ion-icon>
                         </button>
-
+          
                         <div class="card-action-tooltip" id="card-label-2">Add to Whishlist</div>
                       </li>
-
+          
                       <li class="card-action-item">
                         <button class="card-action-btn" aria-labelledby="card-label-3">
                           <ion-icon name="eye-outline"></ion-icon>
                         </button>
-
+          
                         <div class="card-action-tooltip" id="card-label-3">Quick View</div>
                       </li>
-
+          
                       <li class="card-action-item">
                         <button class="card-action-btn" aria-labelledby="card-label-4">
                           <ion-icon name="repeat-outline"></ion-icon>
                         </button>
-
+          
                         <div class="card-action-tooltip" id="card-label-4">Compare</div>
                       </li>
-
+          
                     </ul> -->
                   </figure>
-
+          
                   <div class="card-content">
-
+          
                     <div class="card-cat">
                       <a href="#" class="card-cat-link">${Thecat}</a> 
                     </div>
-
+          
                     <h3 class="h3 card-title">
-                      <a href="/product.html?${e.title}">${e.title}</a>
+                      <a href="/product.html?${e.ID}">${e.DESCRIPTION} ${e['DIMENTION W|D|H CM'].replace(/\|/g, " | ")}</a>
                     </h3>
-
-                    <data class="card-price" value="170.85">$ ${realPrace} <del> $ ${e.sizes[0]["price"]}</del></data>
-
+          
+                    <data class="card-price" value="${e.PRICE}"> ${e.PRICE} € </data>
+          
                   </div>
-
+          
                 </div>
               </li>
-      
-  
-          `
-          }else{
-            document.getElementById('theProduct').innerHTML = `none !!!`
+        `
           }
         });
-
       }
       )
-      .catch((error) => console.error(error));
+      .catch((error) => console.error(e));
 
   </script>
   <!-- 
