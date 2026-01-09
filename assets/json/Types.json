@@ -1,0 +1,22 @@
+[
+  {
+    "ID": "T00001",
+    "NAME": "hanging lamp"
+  },
+  {
+    "ID": "T00002",
+    "NAME": "floor lamp"
+  },
+  {
+    "ID": "T00003",
+    "NAME": "wall lamp"
+  },
+  {
+    "ID": "T00004",
+    "NAME": "mirror"
+  },
+  {
+    "ID": "T00005",
+    "NAME": "furniture"
+  }
+]
