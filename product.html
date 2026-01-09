@@ -722,8 +722,8 @@
       method: "GET",
       redirect: "follow"
     };
-    // let product_name = window.location.href.replace('https://raffiahaven.github.io/product.html?', '');
-    let product_name = window.location.href.replace('http://127.0.0.1:5500/product.html?', '');
+    let product_name = window.location.href.replace('https://raffiahaven.github.io/product.html?', '');
+    // let product_name = window.location.href.replace('http://127.0.0.1:5500/product.html?', '');
     fetch("./assets/json/Catalog.json")
       .then(response => {
         if (!response.ok) {
