@@ -30,7 +30,7 @@
   --black_90: hsla(0, 0%, 0%, 0.9);
   --cultured: hsl(200, 12%, 95%);
   --salmon: hsl(33, 100%, 77%);
-  --white: hsl(0, 0%, 100%);
+  --white: hsla(0, 0%, 100%, 0.705);
   --black: hsl(0, 0%, 0%);
   --onyx: hsl(0, 0%, 27%);
 
@@ -426,6 +426,7 @@ body {
   left: 0;
   width: 100%;
   transition: var(--transition-1);
+  /* backdrop-filter: blur(60px); */
   z-index: 4;
 }
 
@@ -595,12 +596,14 @@ body {
 .hero {
   background-repeat: no-repeat;
   background-size: cover;
-  background-position: left;
+  background-position: right;
   min-height: 400px;
   display: flex;
   align-items: center;
-  width: 99%;
+  width: 95%;
   margin: auto;
+  align-self: center;
+  border-radius: 5%;
 }
 
 .hero-title {
@@ -1606,4 +1609,17 @@ span.material-symbols-outlined {
 
 button.btn.btn-primary {
   border-radius: 50px;
+}
+
+/* edit ilis */
+.card-action-btn2 {
+  height: 38px;
+  width: 38px;
+  padding: 10px;
+  background: var(--white);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--rich-black-fogra-29);
 }
