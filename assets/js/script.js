@@ -539,3 +539,9 @@ function msg(MESSAGE) {
 }
 
 // PRODUCT PAGE RENDER
+function clearAll() {
+  localStorage.removeItem("ShopList");
+  document.getElementById('shopingList').innerHTML = ``;
+  document.getElementById('shopingListValue').nodeValue = 0;
+  document.getElementById('shopingListValue').innerHTML = 0;
+}
